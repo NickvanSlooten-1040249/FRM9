@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Admin;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
 {
     /**
@@ -15,8 +18,9 @@ class AdminController extends Controller
     {
 
         $wishlist = Admin::all();
+        $users = User::all();
 
-        return view("Admin.Admin",compact('wishlist'));
+        return view("Admin.Admin",compact('wishlist','users'));
     }
 
     /**
@@ -54,11 +58,17 @@ class AdminController extends Controller
 
         $wishlist = new Admin([
             'Titel' => $request->get('Titel'),
+            'user_id' => $request->user()->id,
             'Subtitel' => $request->get('Subtitel'),
             'Tekst' => $request->get('Tekst'),
             'Fotos' => $itemImage,
             'Prijs' => $request->get('Prijs'),
+
         ]);
+
+
+
+        $wishlist->user_id = Auth::user()->id;
 
         $wishlist->save();
 
@@ -75,7 +85,8 @@ $wishlist->save();
      */
     public function show($id)
     {
-        //
+        $users = Admin::find($id);
+        return view('wishlist', compact('users'));
     }
 
     /**
@@ -86,6 +97,7 @@ $wishlist->save();
      */
     public function edit($id)
     {
+
         $wishlist = Admin::find($id);
         return view('Admin.edit', compact('wishlist'));
     }

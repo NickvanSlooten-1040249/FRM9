@@ -41,6 +41,7 @@
             @if (Auth::check())
                 <li class="nav-item">
                 <a class="nav-link" href="{{ url('/logout') }}">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="#users">Users</a> </li>
             @else
                <li class="nav-item"> <a class="nav-link" href="{{ url('/login') }}">Login</a>  </li>
                <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a> </li>

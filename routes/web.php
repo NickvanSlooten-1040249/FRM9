@@ -12,8 +12,9 @@
 */
 
 Route::get('/', 'WelcomeController@index');
-Route::get('/admin', 'AdminController@index')->middleware('auth');
-Route::get('/wishlist', 'wishlistController@index');
+Route::get('/home', 'WelcomeController@index');
+Route::get('/admin', 'AdminController@index')->middleware('auth','accAdmin');
+Route::get('/wishlist', 'wishlistController@index')->middleware('auth');
 Route::get('/logout', 'LogoutController@index');
 Route::resource('Admin', 'AdminController');
 Auth::routes();
